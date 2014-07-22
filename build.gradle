@@ -17,11 +17,15 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    poiVersion = '3.10-FINAL'
+}
+
 dependencies {
     compile 'org.concordion:concordion:1.4.4'
-    compile 'org.apache.poi:poi:3.10-FINAL'
-    compile 'org.apache.poi:poi-ooxml:3.10-FINAL'
-    compile 'org.apache.poi:poi-ooxml-schemas:3.10-FINAL'
+    compile 'org.apache.poi:poi:$poiVersion'
+    compile 'org.apache.poi:poi-ooxml:$poiVersion'
+    compile 'org.apache.poi:poi-ooxml-schemas:$poiVersion'
     compile 'org.apache.commons:commons-lang3:3.3.2'
 }
 
