@@ -1,0 +1,75 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.gradle.api.plugins:gradle-nexus-plugin:0.2'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'nexus'
+apply from: 'http://tellurianring.com/projects/gradle-plugins/gradle-release/apply.groovy'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.concordion:concordion:1.4.4'
+    compile 'org.apache.poi:poi:3.10-FINAL'
+    compile 'org.apache.poi:poi-ooxml:3.10-FINAL'
+    compile 'org.apache.poi:poi-ooxml-schemas:3.10-FINAL'
+    compile 'org.apache.commons:commons-lang3:3.3.2'
+}
+
+compileJava {
+    sourceCompatibility = 1.6
+    targetCompatibility = 1.6
+}
+
+test {
+    systemProperties['concordion.output.dir'] = "$reporting.baseDir/spec"
+}
+
+createReleaseTag.dependsOn uploadArchives
+
+modifyPom {
+    project {
+        name 'concordion-excel-extension'
+        description 'This library adds a single extension to the concordion framework to allow tests to be specified in Excel format rather than HTML'
+        url 'http://www.concordion.org/ExtensionsLibrary.html'
+        packaging 'jar'
+        inceptionYear '2014'
+
+        scm {
+            url 'https://github.com/robmoffat/concordion-excel-extension.git'
+            connection 'scm:git:git://github.com/robmoffat/concordion-excel-extension.git'
+            developerConnection 'scm:git:git@github.com:robmoffat/concordion-excel-extension.git'
+        }
+
+        licenses {
+            license {
+                name 'The Apache Software License, Version 2.0'
+                url 'http://www.apache.org/licenses/LICENSE-2.0.html'
+                distribution 'repo'
+            }
+        }
+
+        issueManagement{ 
+            system 'GoogleCode'
+            url 'http://code.google.com/p/concordion-extensions/issues'
+        }
+
+        developers {
+            developer {
+                id 'robmoffat'
+                name 'Rob Moffat'
+                roles { role 'Extension Contributor' }
+                url 'http://kite9.coM'
+            }
+        }
+    }
+}
