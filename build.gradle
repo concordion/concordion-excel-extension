@@ -72,7 +72,7 @@ modifyPom {
                 id 'robmoffat'
                 name 'Rob Moffat'
                 roles { role 'Extension Contributor' }
-                url 'http://kite9.coM'
+                url 'http://kite9.com'
             }
         }
     }
