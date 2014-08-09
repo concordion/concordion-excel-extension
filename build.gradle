@@ -1,17 +1,19 @@
 buildscript {
     repositories {
         mavenCentral()
+        maven {url "https://oss.sonatype.org/content/groups/public"}
+        jcenter()
     }
 
     dependencies {
-        classpath 'org.gradle.api.plugins:gradle-nexus-plugin:0.2'
+        classpath 'org.gradle.api.plugins:gradle-nexus-plugin:0.7.1'
+        classpath 'com.github.townsfolk:gradle-release:1.2'
     }
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
 apply plugin: 'nexus'
-apply from: 'http://tellurianring.com/projects/gradle-plugins/gradle-release/apply.groovy'
+apply plugin: 'release'
 
 repositories {
     mavenCentral()
@@ -23,9 +25,9 @@ ext {
 
 dependencies {
     compile 'org.concordion:concordion:1.4.4'
-    compile 'org.apache.poi:poi:$poiVersion'
-    compile 'org.apache.poi:poi-ooxml:$poiVersion'
-    compile 'org.apache.poi:poi-ooxml-schemas:$poiVersion'
+    compile "org.apache.poi:poi:$poiVersion"
+    compile "org.apache.poi:poi-ooxml:$poiVersion"
+    compile "org.apache.poi:poi-ooxml-schemas:$poiVersion"
     compile 'org.apache.commons:commons-lang3:3.3.2'
 }
 
