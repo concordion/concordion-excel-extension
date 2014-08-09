@@ -62,7 +62,6 @@ public class DefaultCommentConverter extends AbstractConversionStrategy<Cell> {
 	enum Mode { READING_NAME, LOOKING_FOR_EQUALS, LOOKING_FOR_VALUE, READING_VALUE_UNQUOTED, READING_VALUE_SINGLE, READING_VALUE_DOUBLE }
 	
 	protected void parseCommentString(String in, Callback c) {
-		System.out.println("Parsing: "+in);
 		Mode m = Mode.READING_NAME;	
 		String name = null;
 		StringBuilder elem = new StringBuilder();
@@ -90,7 +89,6 @@ public class DefaultCommentConverter extends AbstractConversionStrategy<Cell> {
 						m = Mode.LOOKING_FOR_VALUE;
 					} else{
 						// starting a new name
-						System.out.println("Unmatched name: "+name);
 						elem.append(ch);
 						m = Mode.READING_NAME;
 					}
@@ -146,7 +144,6 @@ public class DefaultCommentConverter extends AbstractConversionStrategy<Cell> {
 
 
 	private void setHtmlAttribute(String name, String value, HTMLBuilder out) {
-		System.out.println("attr: "+name+" "+value);
 		if (name.startsWith("../")) {
 			setHtmlAttribute(name.substring(3), value, out.withParentTag());
 		} else if (name.startsWith("(")) {
