@@ -1,7 +1,9 @@
 package org.concordion.ext.excel.conversion;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -12,7 +14,7 @@ public class HTMLBuilderImpl implements HTMLBuilder {
 	static class Tag {
 		
 		String name;
-		String attributes;
+		Map<String, String> attributes = new HashMap<String, String>();
 		List<Object> content = new LinkedList<Object>();
 		
 		public Tag(String name) {
@@ -23,8 +25,8 @@ public class HTMLBuilderImpl implements HTMLBuilder {
 			content.add(c);
 		}
 		
-		public void appendAttribute(String att) {
-			attributes = attributes == null ? att :attributes+" "+att;
+		public void appendAttribute(String name, String value) {
+			attributes.put(name, value);
 		}
 		
 		public void output(StringBuilder sb) {
@@ -32,9 +34,12 @@ public class HTMLBuilderImpl implements HTMLBuilder {
 			
 			sb.append("<");
 			sb.append(name);
-			if (attributes!=null) {
+			for (Map.Entry<String, String> attr : attributes.entrySet()) {
 				sb.append(" ");
-				sb.append(attributes);
+				sb.append(attr.getKey());
+				sb.append("=\"");
+				sb.append(attr.getValue());
+				sb.append("\"");
 			}
 			
 			if (!hasContent) {
@@ -87,8 +92,7 @@ public class HTMLBuilderImpl implements HTMLBuilder {
 	@Override
 	public void addAttribute(String name, String value) {
 		if (isPresent(name) && isPresent(value)) {
-			String compound =  (escape(name) + "=\""+ escape(value)+"\"");
-			document.peek().appendAttribute(compound);
+			document.peek().appendAttribute(escape(name), escape(value));
 		}
 	}
 
@@ -99,6 +103,11 @@ public class HTMLBuilderImpl implements HTMLBuilder {
 	@Override
 	public void addText(String text) {
 		document.peek().add(escape(text));
+	}
+	
+	@Override
+	public void addUnescapedText(String text) {
+		document.peek().add(text);
 	}
 
 	@Override
@@ -144,5 +153,14 @@ public class HTMLBuilderImpl implements HTMLBuilder {
 		return document.peek().name;
 	}
 	
+	@Override
+	public void setCurrentOpenTag(String tag) {
+		document.peek().name = tag;
+	}
+
+	@Override
+	public String getCurrentOpenTagAttribute(String name) {
+		return document.peek().attributes.get(name);
+	}
 	
 }

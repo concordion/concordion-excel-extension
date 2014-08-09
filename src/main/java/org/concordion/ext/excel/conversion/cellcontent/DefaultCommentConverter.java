@@ -1,13 +1,11 @@
 package org.concordion.ext.excel.conversion.cellcontent;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Comment;
 import org.concordion.ext.excel.ExcelConversionException;
 import org.concordion.ext.excel.conversion.AbstractConversionStrategy;
 import org.concordion.ext.excel.conversion.HTMLBuilder;
+import org.dom4j.DocumentException;
 
 /**
  * Knows how to convert Excel cell comments into html attributes, generally for calling concordion commands.
@@ -32,9 +30,10 @@ public class DefaultCommentConverter extends AbstractConversionStrategy<Cell> {
 	 * This is because the comments are not always well-formed markup.
 	 * 
 	 * This is probably going to be a bit unreliable.
+	 * @throws DocumentException 
 	 */
 	@Override
-	public void process(Cell in, HTMLBuilder out) {
+	public void process(Cell in, final HTMLBuilder out) {
 		if (in == null) {
 			return;
 		}
@@ -42,17 +41,112 @@ public class DefaultCommentConverter extends AbstractConversionStrategy<Cell> {
 		Comment comment = in.getCellComment();
 		if (comment != null) {
 			String commentString =comment.getString().toString();
-			Matcher m = REGEX_PAT.matcher(commentString);
-			while (m.find()) {
-				String name = m.group(1);
-				String value = m.group(2);
-				setHtmlAttribute(name, value, out);
-			}
 			
+			parseCommentString(commentString, new DefaultCommentConverter.Callback() {
+			
+				public void addAttribute(String name, String value) {
+					setHtmlAttribute(name, value, out);
+				}
+				
+			});
 		}
 	}
 	
+	static interface Callback {
+		
+		public void addAttribute(String name, String value);
+		
+		
+	}
+	
+	enum Mode { READING_NAME, LOOKING_FOR_EQUALS, LOOKING_FOR_VALUE, READING_VALUE_UNQUOTED, READING_VALUE_SINGLE, READING_VALUE_DOUBLE }
+	
+	protected void parseCommentString(String in, Callback c) {
+		System.out.println("Parsing: "+in);
+		Mode m = Mode.READING_NAME;	
+		String name = null;
+		StringBuilder elem = new StringBuilder();
+		int i = 0;
+		while (i < in.length()) {
+			char ch = in.charAt(i);
+			i++;
+			switch (m) {
+				case READING_NAME:
+					if (Character.isWhitespace(ch))  {
+						name = extract(elem);
+						m = Mode.LOOKING_FOR_EQUALS;
+					} else if ('=' == ch) {
+						name = elem.toString();
+						elem.setLength(0);
+						m = Mode.LOOKING_FOR_VALUE;
+					} else{
+						elem.append(ch);
+					}
+					break;
+				case LOOKING_FOR_EQUALS:
+					if (Character.isWhitespace(ch))  {
+						// do nothing
+					} else if ('=' == ch) {
+						m = Mode.LOOKING_FOR_VALUE;
+					} else{
+						// starting a new name
+						System.out.println("Unmatched name: "+name);
+						elem.append(ch);
+						m = Mode.READING_NAME;
+					}
+					break;
+				case LOOKING_FOR_VALUE:
+					if (Character.isWhitespace(ch)) {
+						// do nothing
+					} else if ('\'' == ch) {
+						m = Mode.READING_VALUE_SINGLE;
+					} else if ('\"' == ch) {
+						m = Mode.READING_VALUE_DOUBLE;
+					} else {
+						m = Mode.READING_VALUE_UNQUOTED;
+					}
+					break;
+				case READING_VALUE_UNQUOTED:
+					if (Character.isWhitespace(ch))  {
+						c.addAttribute(name, elem.toString());
+						extract(elem);
+						m = Mode.READING_NAME;
+					} else {
+						elem.append(ch);
+					} 
+					break;
+				case READING_VALUE_DOUBLE:
+					if ('"' == ch)  {
+						c.addAttribute(name, elem.toString());
+						extract(elem);
+						m = Mode.READING_NAME;
+					} else {
+						elem.append(ch);
+					} 
+					break;
+				case READING_VALUE_SINGLE:
+					if ('\'' == ch)  {
+						c.addAttribute(name, elem.toString());
+						extract(elem);
+						m = Mode.READING_NAME;
+					} else {
+						elem.append(ch);
+					} 
+					break;
+			}
+		}
+	}
+			
+	
+	private String extract(StringBuilder elem) {
+		String out = elem.toString();
+		elem.setLength(0);
+		return out;
+	}
+
+
 	private void setHtmlAttribute(String name, String value, HTMLBuilder out) {
+		System.out.println("attr: "+name+" "+value);
 		if (name.startsWith("../")) {
 			setHtmlAttribute(name.substring(3), value, out.withParentTag());
 		} else if (name.startsWith("(")) {
@@ -82,10 +176,5 @@ public class DefaultCommentConverter extends AbstractConversionStrategy<Cell> {
 			throw new ExcelAttributeConversionException("Couldn't find matching tag: "+tag, ce);
 		}
 	}
-
-	/* From: http://stackoverflow.com/questions/317053/regular-expression-for-extracting-tag-attributes */
-	public static final String REGEX_STR = "(\\S+)=[\"']?((?:.(?![\"']?\\s+(?:\\S+)=|[>\"']))+.)[\"']?";
-	public static final Pattern REGEX_PAT = Pattern.compile(REGEX_STR);
-
 
 }

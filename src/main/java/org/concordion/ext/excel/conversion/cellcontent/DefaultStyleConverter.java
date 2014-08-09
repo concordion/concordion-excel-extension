@@ -18,17 +18,19 @@ import org.concordion.ext.excel.conversion.HTMLBuilder;
  */
 public class DefaultStyleConverter extends AbstractConversionStrategy<Cell> {
 
+	private String defaultFont = "Calibri";
 	private int defaultFontPointSize = 12;
 	private int defaultBoldWeight = 400;
 	private int defaultBGColor = 64;
 	private int defaultFGColor = 0;
 	
-	public DefaultStyleConverter(int defaultFontPointSize, int defaultBoldWeight, int defaultFGColor, int defaultBGColor) {
+	public DefaultStyleConverter(int defaultFontPointSize, int defaultBoldWeight, int defaultFGColor, int defaultBGColor, String defaultFont) {
 		super();
 		this.defaultFontPointSize = defaultFontPointSize;
 		this.defaultBoldWeight = defaultBoldWeight;
 		this.defaultFGColor = defaultFGColor;
 		this.defaultBGColor = defaultBGColor;
+		this.defaultFont = defaultFont;
 	}
 
 	public DefaultStyleConverter() {
@@ -89,14 +91,18 @@ public class DefaultStyleConverter extends AbstractConversionStrategy<Cell> {
 		}
 		
 		if (f.getStrikeout()) {
-			// TODO: find HTML For this
+			out.append("text-decoration: line-through;");
+		}
+		
+		if (!f.getFontName().equals(defaultFont)) {
+			out.append("font-family: "+f.getFontName()+"; ");
 		}
 		
 		if (f.getBoldweight() > defaultBoldWeight) {
 			out.append("font-weight: bold; ");
 		}
 	}
-
+	
 	protected Font getFont(Cell c) {
 		CellStyle style = c.getCellStyle();
 		short fontIndex = style.getFontIndex();

@@ -18,9 +18,15 @@ public interface HTMLBuilder {
 	
 	public void addText(String text);
 	
+	public void addUnescapedText(String text);
+	
 	public void endTag();
 	
 	public String getCurrentOpenTag();
+	
+	public void setCurrentOpenTag(String tag);
+	
+	public String getCurrentOpenTagAttribute(String name);
 	
 	/**
 	 * Returns an HTML builder for the parent tag, allowing you to modify already created 

@@ -43,7 +43,15 @@ public class BasicCellConversionStrategy extends
 			for (ConversionStrategy<Cell> cs : contentConverters) {
 				cs.process(in, out);
 			}
-			out.addText(getCellContent(in));
+			
+			String content = getCellContent(in);
+			
+			String tagOverride = out.getCurrentOpenTagAttribute("html-tag");
+			if (tagOverride != null) {
+				out.setCurrentOpenTag(tagOverride);
+			}
+			
+			out.addText(content);
 			out.endTag();
 		}
 	}
