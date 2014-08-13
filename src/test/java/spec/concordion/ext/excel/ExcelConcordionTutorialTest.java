@@ -29,4 +29,12 @@ public class ExcelConcordionTutorialTest {
 		String tag = "p";
 		return "<"+tag+">"+text+"</"+tag+">";
 	}
+	
+	public double calculateResult(String a, String b, String c) {
+		double aa = Double.parseDouble(a);
+		double bb = Double.parseDouble(b);
+		double cc = Double.parseDouble(c);
+		return aa*bb+cc;
+		
+	}
 }
