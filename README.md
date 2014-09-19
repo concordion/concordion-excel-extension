@@ -1,12 +1,8 @@
+
+
 [Concordion](http://www.concordion.org) is an open source framework for Java that lets you turn a plain English description of a requirement into an automated test.
  
 This project enables concordion to parse an Excel spreadsheet and use it as input data.   
-
-Concordion Excel Tutorial
-=========================
-
-This tutorial is designed to show you how to take advantage of the Concordion Excel Extension 
-to build an automated acceptance test.
 
 Vanilla Concordion is designed to process test specifications written in using a combination of an HTML Document
 and a Java fixture class.  When Concordion runs the test, it takes the HTML document and uses it as as the basis 
@@ -34,8 +30,11 @@ to most HTML editors, or HTML-by-hand.
 examples using the functions rather than calculating them by hand and putting the results into the test specification.  In fact, if you're
 here, your testers are probably calculating the test examples using Excel anyway.
 
-This Tutorial
--------------
+Tutorial
+========
+
+This tutorial is designed to show you how to take advantage of the Concordion Excel Extension 
+to build an automated acceptance test.
 
 In this example, we are going to develop some Java code and an accompanying test.  The purpose of the code will be to 
 calculate a taxi fare, which is a function of the distance travelled.   Yes, this is a contrived, simplified
@@ -274,7 +273,7 @@ And no other changes are necessary - Excel takes care of updating the results of
 
 
 Note on Windows / Eclipse Usage
--------------------------------
+===============================
 
 Eclipse gets confused about Windows Temporary Files if they are in the build path  (e.g. src/test/resources).  This means
 that if you have Excel open, Eclipse stops building your project.   But, there is a simple workaround for this, which is 
