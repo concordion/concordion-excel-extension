@@ -117,7 +117,7 @@ implementation.  To do this, let's set concordion variables from the values on t
 To do this, we add excel comments containing our concordion commands.  This follows the approach when we design an HTML concordion test and
 add attributes to our HTML elements.  Here is an example:
 
-![Setting a Concordion Value](tutorial/images/ExcelConcordioinSet1.png)
+![Setting a Concordion Value](tutorial/images/ExcelConcordionSet1.png)
 
 The way this works is that the Concordion Excel Extension tries to parse the contents of Excel comments it finds in your spreadsheets.  When
 it finds one that looks like an HTML attribute (i.e. `name="value"`) it adds this to the concordion test model, and executes the appropriate
@@ -280,5 +280,26 @@ that if you have Excel open, Eclipse stops building your project.   But, there i
 to add an exclusion pattern like so:
 
 ![Eclipse Exclusion Pattern](tutorial/images/EclipseExclusionPattern.png)
+
+If you are generating the Eclipse .classpath file using Maven, you can add this to your maven pom.xml file to do the same thing:
+
+	<project>
+	  ...
+	  <build>
+	    ...
+	    <resources>
+	      <resource>
+	        <directory>src/main/resources</directory>
+	        <filtering>true</filtering>
+	        <includes>
+	          <exclude>**/~$*.xlsx</include>
+	        </includes>
+	      </resource>
+	      ...
+	    </resources>
+	    ...
+	  </build>
+	  ...
+	</project>
 
 	
