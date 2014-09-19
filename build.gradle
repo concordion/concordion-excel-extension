@@ -8,6 +8,7 @@ buildscript {
     dependencies {
         classpath 'org.gradle.api.plugins:gradle-nexus-plugin:0.7.1'
         classpath 'com.github.townsfolk:gradle-release:1.2'
+        classpath 'org.ajoberstar:gradle-git:0.9+'     
     }
 }
 
@@ -15,6 +16,7 @@ apply plugin: 'java'
 apply plugin: 'nexus'
 apply plugin: 'release'
 apply plugin: 'eclipse'
+apply plugin: 'github-pages'     
 
 repositories {
     mavenCentral()
@@ -79,4 +81,11 @@ modifyPom {
             }
         }
     }
+}
+
+githubPages {
+  repoUri = 'git@github.com:concordion/concordion-excel-extension.git'      
+  pages {
+     from './build/reports/spec/spec/concordion/ext/excel'
+  }
 }

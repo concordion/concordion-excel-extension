@@ -74,9 +74,11 @@ public class HeuristicTablesRowStrategy implements ConversionStrategy<Row> {
 			return false;
 		}
 		
-		return isPartOfExcelTable(in) || 
-				hasBorderFormatting(in) || 
-				hasMergedCells(in);
+		return isPartOfExcelTable(in); 
+		
+//		|| 
+//				hasBorderFormatting(in) || 
+//				hasMergedCells(in);
 	}
 
 	protected boolean hasMergedCells(Row in) {
