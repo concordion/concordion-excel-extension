@@ -5,7 +5,6 @@ import org.apache.poi.ss.usermodel.Comment;
 import org.concordion.ext.excel.ExcelConversionException;
 import org.concordion.ext.excel.conversion.AbstractConversionStrategy;
 import org.concordion.ext.excel.conversion.HTMLBuilder;
-import org.dom4j.DocumentException;
 
 /**
  * Knows how to convert Excel cell comments into html attributes, generally for calling concordion commands.
@@ -30,7 +29,6 @@ public class DefaultCommentConverter extends AbstractConversionStrategy<Cell> {
 	 * This is because the comments are not always well-formed markup.
 	 * 
 	 * This is probably going to be a bit unreliable.
-	 * @throws DocumentException 
 	 */
 	@Override
 	public void process(Cell in, final HTMLBuilder out) {
