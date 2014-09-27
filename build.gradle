@@ -22,12 +22,17 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.3.2'
 }
 
-task publishDocs(type: GradleBuild, dependsOn: ['javadoc', 'test']) {
-    buildFile = 'publish.gradle'
-    tasks = ['publishGhPages']
+githubPages {
+	repoUri = 'git@github.com:concordion/concordion-excel-extension.git'
+	pages {
+	   from 'docs'
+
+		from ('build/reports/spec/spec/concordion/ext/excel') {
+			into 'spec'
+		}
+
+		from ('build/docs/javadoc/') {
+			into 'api'
+		}
+	}
 }
-
-//TODO - do we want to publish Docs on a snapshot? Should we version docs?
-task publishSnapshot(dependsOn: ['publishDocs', 'uploadArchives'])
-
-task publishRelease(dependsOn: ['publishDocs', 'release'])
