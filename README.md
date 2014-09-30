@@ -40,6 +40,9 @@ Excel's xlsx format is a zip file containing lots of futher XML files, plus any 
 an open format now, most version control systems aren't able to do a line-by-line diff on the zip, so effectively you will be checking in 
 the spreadsheet as though it is a binary format.
 
+This means you will have to be careful about ensuring only one person edits the spreadsheet at a time, as you won't be able to merge different
+versions automatically.
+
 Note on Windows / Eclipse Usage
 -------------------------------
 
