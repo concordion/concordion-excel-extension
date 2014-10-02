@@ -27,12 +27,10 @@ public class BasicSheetConversionStrategy extends AbstractConversionStrategy<XSS
 		result.addText(xssfSheet.getSheetName());
 		result.endTag();
 		
-		rowStrategy.start(result);
 		for (int i = xssfSheet.getFirstRowNum(); i <= xssfSheet.getLastRowNum(); i++) {
 			Row row = xssfSheet.getRow(i);
 			rowStrategy.process(row, result);
 		}
-		rowStrategy.finish(result);
 		
 		result.endTag();
 	}

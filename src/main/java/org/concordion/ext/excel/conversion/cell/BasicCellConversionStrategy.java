@@ -1,16 +1,13 @@
 package org.concordion.ext.excel.conversion.cell;
 
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BLANK;
-import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BOOLEAN;
-import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_ERROR;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_FORMULA;
-import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC;
-import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_STRING;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.poi.ss.usermodel.Cell;
-import org.concordion.ext.excel.ExcelCellConversionException;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.concordion.ext.excel.conversion.AbstractConversionStrategy;
 import org.concordion.ext.excel.conversion.ConversionStrategy;
 import org.concordion.ext.excel.conversion.HTMLBuilder;
@@ -64,30 +61,24 @@ public class BasicCellConversionStrategy extends
 		return getCellStringContentsForType(in.getCellType(), in);
 	}
 
+	/**
+	 * There are some notable differences here between what appears in your HTML
+	 * file and what you have formatted on the spreadsheet.  It's pretty annoying,
+	 * not sure there's much I can do, because I don't want to overcomplicate this.
+	 * 
+	 * Two examples:  booleans appear in lower case (true, false), dates in the default
+	 * Excel format (in a UK locale) like 15/1/2021 get modified to 1/15/21.  
+	 */
 	protected String getCellStringContentsForType(int type, Cell in) {
-		switch (type) {
-		case CELL_TYPE_BLANK:
-			return "";
-		case CELL_TYPE_BOOLEAN:
-			return in.getBooleanCellValue() ? "true" : "false";
-		case CELL_TYPE_ERROR:
-			// not sure about this. Should this be allowed?
-			return "";
-		case CELL_TYPE_FORMULA:
-			return getCellStringContentsForType(in.getCachedFormulaResultType(), in);
-		case CELL_TYPE_STRING:
-			return in.getStringCellValue();
-		case CELL_TYPE_NUMERIC:
-			// need to handle difference between numbers and dates
-
-			// TODO: handle dates.
-
-			return "" + in.getNumericCellValue();
-		default:
-			throw new ExcelCellConversionException("Unknown Excel Cell Type: "
-					+ in.getCellType(), in);
+		if (type == CELL_TYPE_FORMULA) {
+			in.setCellType(in.getCachedFormulaResultType());
 		}
+
+		DataFormatter df = new DataFormatter(Locale.getDefault());
+		return df.formatCellValue(in);
+
 	}
+	
 
 	protected boolean hasContent(Cell in) {
 		return (in != null)

@@ -15,9 +15,8 @@ import org.concordion.ext.excel.conversion.cell.TableCellConversionStrategy;
 import org.concordion.ext.excel.conversion.cellcontent.DefaultCommentConverter;
 import org.concordion.ext.excel.conversion.cellcontent.DefaultStyleConverter;
 import org.concordion.ext.excel.conversion.cellcontent.MergedCellConversionStrategy;
-import org.concordion.ext.excel.conversion.row.BasicTableRowStrategy;
-import org.concordion.ext.excel.conversion.row.HeuristicTablesRowStrategy;
-import org.concordion.ext.excel.conversion.row.ParagraphRowStrategy;
+import org.concordion.ext.excel.conversion.row.BasicTableStrategy;
+import org.concordion.ext.excel.conversion.row.ParagraphsAndTablesRowStrategy;
 import org.concordion.ext.excel.conversion.sheet.BasicSheetConversionStrategy;
 import org.concordion.ext.excel.conversion.workbook.BasicWorkbookConversionStrategy;
 import org.concordion.ext.excel.conversion.workbook.WorkbookConversionStrategy;
@@ -57,12 +56,11 @@ public class ExcelExtension implements ConcordionExtension {
 		ConversionStrategy<Cell> cellHeaderStrategy = new TableCellConversionStrategy(cellPartConverters, "th");
 		ConversionStrategy<Cell> paragraphCellStrategy = new BasicCellConversionStrategy(cellPartConverters, "span", false);
 		
-		ParagraphRowStrategy paragraphStrategy = new ParagraphRowStrategy(paragraphCellStrategy);
-		BasicTableRowStrategy tableStrategy = new BasicTableRowStrategy(cellBodyStrategy, cellHeaderStrategy);
+		BasicTableStrategy tableStrategy = new BasicTableStrategy(cellBodyStrategy, cellHeaderStrategy);
 		
 		return new BasicWorkbookConversionStrategy(
 				new BasicSheetConversionStrategy(
-				 new HeuristicTablesRowStrategy(paragraphStrategy, tableStrategy)));
+				 new ParagraphsAndTablesRowStrategy(paragraphCellStrategy, tableStrategy)));
 		
 	}
 
@@ -76,6 +74,24 @@ public class ExcelExtension implements ConcordionExtension {
 
 	protected SpecificationLocator getLocator() {
 		return new ClassNameBasedSpecificationLocator(EXCEL_FILE_EXTENSION);
+	}
+
+	/**
+	 * This field is used for unit-testing purposes and shouldn't be relied upon 
+	 * for any kind of functionality.
+	 */
+	private static String lastConversion;
+	
+	public static void setLastConversion(String resultString) {
+		lastConversion = resultString;
+	}
+	
+	/**
+	 * Returns the last conversion done by the {@link ExcelExtension}.  Used only for unit testing the 
+	 * Excel Extension itself.
+	 */
+	public static String getLastConversion() {
+		return lastConversion;
 	}
 
 }

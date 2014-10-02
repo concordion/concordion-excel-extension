@@ -31,11 +31,9 @@ public class BasicWorkbookConversionStrategy extends AbstractConversionStrategy<
     	result.addText(title);
     	result.endTag();
     	
-		sheetStrategy.start(result);
     	for (XSSFSheet xssfSheet : workbook) {
 			sheetStrategy.process(xssfSheet, result);
 		}
-		sheetStrategy.finish(result);
     	
     	result.endTag();
     	result.endTag();

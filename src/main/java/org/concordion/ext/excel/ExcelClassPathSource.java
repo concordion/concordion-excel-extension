@@ -46,7 +46,7 @@ public class ExcelClassPathSource implements Source {
     protected InputStream createInputStreamFromPage(HTMLBuilder result) {
 		String resultString = result.toString();
 		
-		System.out.println(resultString);
+		ExcelExtension.setLastConversion(resultString);
 		
 		return new ByteArrayInputStream(resultString.getBytes());
 	}

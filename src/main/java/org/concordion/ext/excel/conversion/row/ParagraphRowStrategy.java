@@ -1,11 +1,12 @@
 package org.concordion.ext.excel.conversion.row;
 
+import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BLANK;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.concordion.ext.excel.conversion.AbstractConversionStrategy;
 import org.concordion.ext.excel.conversion.ConversionStrategy;
 import org.concordion.ext.excel.conversion.HTMLBuilder;
-
 /**
  * Handles the conversion of Excel rows by turning each one into a "p" HTML tag.
  * 
@@ -26,26 +27,53 @@ public class ParagraphRowStrategy extends AbstractConversionStrategy<Row> {
 		if (r == null) {
 			return;
 		}
+	
+		boolean rowHasParagraph = rowNeedsParagraph(r);
 		
-		result.startTag("p");
+		if (rowHasParagraph) {
+			result.startTag("p");
+		}
+		
 		boolean firstCell = true;
 		
-		cellStrategy.start(result);
 		for (Cell cell : r) {
+			firstCell = processCell(result, cell, firstCell);
+		}
+
+		if (rowHasParagraph) {
+			result.endTag();
+		}
+	}
+
+	protected boolean processCell(HTMLBuilder result, Cell cell, boolean firstCell) {
+		if (cellHasData(cell)) {
 			if (firstCell) {
 				firstCell = false;
 			} else {
-				appendInterCellElements(r, result);
+				appendInterCellElements(result);
 			}
 
 			cellStrategy.process(cell, result);
 		}
-		cellStrategy.finish(result);
 		
-		result.endTag();
+		return firstCell;
 	}
 
-	protected void appendInterCellElements(Row r, HTMLBuilder result) {
+	protected void appendInterCellElements(HTMLBuilder result) {
 		result.addText(" ");
+	}
+	
+	protected boolean cellHasData(Cell in) {
+		return (in != null) && (in.getCellType() != CELL_TYPE_BLANK);
+	}
+	
+	protected boolean rowNeedsParagraph(Row r) {
+		for (Cell cell : r) {
+			if (cellHasData(cell)) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }

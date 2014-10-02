@@ -13,11 +13,7 @@ package org.concordion.ext.excel.conversion;
  * @param <X>
  */
 public interface ConversionStrategy<X> {
-
-	public void start(HTMLBuilder out);
 	
 	public void process(X in, HTMLBuilder out);
-	
-	public void finish(HTMLBuilder out);
-	
+		
 }
