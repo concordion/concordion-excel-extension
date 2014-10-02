@@ -79,6 +79,6 @@ that Eclipse can keep track of the changes you make and keep your bin/ directory
 Documentation
 =============
 
-1. [beginners tutorial](tutorial.md)
+1. [beginners tutorial](http://github.com/concordion/concordion-excel-extension-tutorial)
 2. [Specification](http://concordion.github.io/concordion-excel-extension/spec/ExcelConcordionTutorial.html)
 
