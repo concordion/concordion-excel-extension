@@ -1,4 +1,4 @@
-
+[![Build Status](https://travis-ci.org/concordion/concordion-excel-extension.svg?branch=master)](https://travis-ci.org/concordion/concordion-excel-extension)
 
 [Concordion](http://www.concordion.org) is an open source framework for Java that lets you turn a plain English description of a requirement into an automated test.
  
