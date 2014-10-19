@@ -30,6 +30,10 @@ to most HTML editors, or HTML-by-hand.
 examples using the functions rather than calculating them by hand and putting the results into the test specification.  In fact, if you're
 here, your testers are probably calculating the test examples using Excel anyway.
 
+# Installation
+The extension is available from [Maven Central](http://search.maven.org/#artifactdetails%7Corg.concordion%7Cconcordion-excel-extension%7C1.0.0%7Cjar).
+
+
 Caveats
 =======
 
