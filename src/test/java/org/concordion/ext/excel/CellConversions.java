@@ -8,8 +8,6 @@ import org.junit.runner.RunWith;
 @Extensions(ExcelExtension.class)
 public class CellConversions extends AbstractSpecTest {
 
-	// NOTE: this test fails with Java 7, but passes with Java 8 due to rounding differences on the currency value. 
-	// Java 7 uses $6.79. Java 8 uses $6.78. Possibly due to this modification - https://bugs.openjdk.java.net/browse/JDK-7131459.
 	@Override
 	public String getBody() {
 		return "<p><span>Number Examples</span> <span>1.50</span> <span>3</span> <span>6,100.105</span> <span>1.7</span></p>"
