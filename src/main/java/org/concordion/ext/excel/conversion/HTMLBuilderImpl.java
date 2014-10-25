@@ -116,7 +116,7 @@ public class HTMLBuilderImpl implements HTMLBuilder {
 	}
 	
 	protected String escape(String s) {
-		return StringEscapeUtils.escapeHtml4(s);
+		return StringEscapeUtils.escapeXml10(s);
 	}
 
 	public String toString() {
