@@ -31,7 +31,7 @@ examples using the functions rather than calculating them by hand and putting th
 here, your testers are probably calculating the test examples using Excel anyway.
 
 # Installation
-The extension is available from [Maven Central](http://search.maven.org/#artifactdetails%7Corg.concordion%7Cconcordion-excel-extension%7C1.0.0%7Cjar).
+The extension is available from [Maven Central](http://search.maven.org/#artifactdetails%7Corg.concordion%7Cconcordion-excel-extension%7C1.0.1%7Cjar).
 
 
 Caveats
