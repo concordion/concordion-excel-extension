@@ -32,6 +32,10 @@ githubPages {
 			into 'spec'
 		}
 
+                      from ('build/reports/spec/org/concordion/ext/excel') {
+                          into 'tests'
+                      }
+
 		from ('build/docs/javadoc/') {
 			into 'api'
 		}
