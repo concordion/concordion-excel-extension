@@ -13,7 +13,7 @@ ext {
             url 'http://kite9.com'
         }
     }
-    inceptionYear = '2014'   
+    inceptionYear = '2014'
 }
 
 dependencies {
