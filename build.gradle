@@ -1,10 +1,5 @@
 apply from: 'https://raw.githubusercontent.com/concordion/concordion-extension-build/master/extension-build.gradle'
 apply plugin: 'eclipse'
-apply plugin: 'wrapper'
-
-wrapper {
-    gradleVersion = "2.2"
-}
 
 description = 'An extension to Concordion to use Excel spreadsheets rather than HTML as specifications'
 
