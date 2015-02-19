@@ -1,6 +1,5 @@
 package org.concordion.ext.excel;
 
-import junit.framework.Assert;
 
 /**
  * All of these tests work on the basis of comparing what the Excel converter produced with

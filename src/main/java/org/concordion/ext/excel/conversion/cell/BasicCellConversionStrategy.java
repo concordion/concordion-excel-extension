@@ -8,6 +8,7 @@ import java.util.Locale;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.concordion.ext.excel.conversion.AbstractConversionStrategy;
 import org.concordion.ext.excel.conversion.ConversionStrategy;
 import org.concordion.ext.excel.conversion.HTMLBuilder;
@@ -70,14 +71,11 @@ public class BasicCellConversionStrategy extends
 	 * Excel format (in a UK locale) like 15/1/2021 get modified to 1/15/21.  
 	 */
 	protected String getCellStringContentsForType(int type, Cell in) {
-		if (type == CELL_TYPE_FORMULA) {
-			in.setCellType(in.getCachedFormulaResultType());
-		}
-
 		DataFormatter df = new DataFormatter(Locale.getDefault());
-		return df.formatCellValue(in);
-
+		return df.formatCellValue(in, EVALUATOR);
 	}
+	
+	public static final FormulaEvaluator EVALUATOR = new CachedValueFormulaEvaluator();
 	
 
 	protected boolean hasContent(Cell in) {
