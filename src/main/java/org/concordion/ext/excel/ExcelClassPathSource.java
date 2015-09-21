@@ -43,8 +43,10 @@ public class ExcelClassPathSource implements Source {
         }
     }
 
+	private static final String XML_PROLOG = "<?xml version=\"1.0\" encoding=\"UTF8\"?>";
+	
     protected InputStream createInputStreamFromPage(HTMLBuilder result) {
-		String resultString = result.toString();
+		String resultString = XML_PROLOG + result.toString();
 		
 		ExcelExtension.setLastConversion(resultString);
 		
