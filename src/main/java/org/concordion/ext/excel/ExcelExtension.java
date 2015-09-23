@@ -22,7 +22,6 @@ import org.concordion.ext.excel.conversion.workbook.BasicWorkbookConversionStrat
 import org.concordion.ext.excel.conversion.workbook.WorkbookConversionStrategy;
 import org.concordion.internal.ClassNameBasedSpecificationLocator;
 import org.concordion.internal.ClassPathSource;
-import org.concordion.internal.FileTargetWithSuffix;
 
 /**
  * Provides functionality to concordion to allow test specifications to be written in Excel format.
@@ -69,7 +68,7 @@ public class ExcelExtension implements ConcordionExtension {
 	}
 	
 	protected Target getTarget() {
-		return new FileTargetWithSuffix("html");
+		return new ExcelSuffixRenamingTarget();
 	}
 
 	protected SpecificationLocator getLocator() {
