@@ -1,26 +1,16 @@
 package org.concordion.ext.excel;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 
 import org.concordion.api.Resource;
 import org.concordion.api.Target;
+import org.concordion.internal.ConcordionBuilder;
 import org.concordion.internal.FileTarget;
 
 public class ExcelSuffixRenamingTarget implements Target {
 
-	private static final String PROPERTY_OUTPUT_DIR = "concordion.output.dir";
-
-	private FileTarget target = new FileTarget(getBaseOutputDir());
-
-	private File getBaseOutputDir() {
-		String outputPath = System.getProperty(PROPERTY_OUTPUT_DIR);
-		if (outputPath == null) {
-			return new File(System.getProperty("java.io.tmpdir"), "concordion");
-		}
-		return new File(outputPath);
-	}
+	private FileTarget target = new FileTarget(ConcordionBuilder.getBaseOutputDir());
 
 	@Override
 	public void write(org.concordion.api.Resource resource, String s) throws java.io.IOException {
