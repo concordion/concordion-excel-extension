@@ -6,7 +6,7 @@ package org.concordion.ext.excel.conversion;
  * 
  * @author robmoffat
  *
- * @param <X>
+ * @param <X> Type of the object being converted.
  */
 public abstract class AbstractConversionStrategy<X> implements ConversionStrategy<X> {
 

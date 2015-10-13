@@ -62,13 +62,13 @@ public class BasicCellConversionStrategy extends
 		return getCellStringContentsForType(in.getCellType(), in);
 	}
 
-	/**
+	/*
 	 * There are some notable differences here between what appears in your HTML
 	 * file and what you have formatted on the spreadsheet.  It's pretty annoying,
 	 * not sure there's much I can do, because I don't want to overcomplicate this.
 	 * 
 	 * Two examples:  booleans appear in lower case (true, false), dates in the default
-	 * Excel format (in a UK locale) like 15/1/2021 get modified to 1/15/21.  
+	 * Excel format (in a UK locale) like 15/1/2021 get modified to 1/15/21. 
 	 */
 	protected String getCellStringContentsForType(int type, Cell in) {
 		DataFormatter df = new DataFormatter(Locale.getDefault());

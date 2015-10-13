@@ -11,6 +11,7 @@ public interface HTMLBuilder {
 
 	/**
 	 * Pushes a new open tag onto the context
+	 * @param tag xhtml tag to push.
 	 */
 	public void startTag(String tag);
 	
@@ -29,13 +30,12 @@ public interface HTMLBuilder {
 	public String getCurrentOpenTagAttribute(String name);
 	
 	/**
-	 * Returns an HTML builder for the parent tag, allowing you to modify already created 
-	 * HTML elements.
+	 * @return an HTML builder for the parent tag, allowing you to modify already created HTML elements.
 	 */
 	public HTMLBuilder withParentTag();
 	
 	/**
-	 * Returns the HTML builder for the root (i.e. &lt;html&gt;) tag at the start of the document.
+	 * @return the HTML builder for the root (i.e. &lt;html&gt;) tag at the start of the document.
 	 */
 	public HTMLBuilder withRootTag();
 

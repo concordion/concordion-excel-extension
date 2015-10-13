@@ -88,6 +88,8 @@ public class ExcelExtension implements ConcordionExtension {
 	/**
 	 * Returns the last conversion done by the {@link ExcelExtension}.  Used only for unit testing the 
 	 * Excel Extension itself.
+	 * 
+	 * @return some xhtml.
 	 */
 	public static String getLastConversion() {
 		return lastConversion;

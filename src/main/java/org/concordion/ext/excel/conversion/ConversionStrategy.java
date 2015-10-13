@@ -10,7 +10,7 @@ package org.concordion.ext.excel.conversion;
  * 
  * @author robmoffat
  *
- * @param <X>
+ * @param <X> Type of the object being converted.
  */
 public interface ConversionStrategy<X> {
 	
