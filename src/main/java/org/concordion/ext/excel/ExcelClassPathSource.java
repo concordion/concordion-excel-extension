@@ -3,6 +3,7 @@ package org.concordion.ext.excel;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 
 import org.concordion.api.Resource;
 import org.concordion.api.Source;
@@ -45,12 +46,12 @@ public class ExcelClassPathSource implements Source {
 
 	private static final String XML_PROLOG = "<?xml version=\"1.0\" encoding=\"UTF8\"?>";
 	
-    protected InputStream createInputStreamFromPage(HTMLBuilder result) {
+    protected InputStream createInputStreamFromPage(HTMLBuilder result) throws UnsupportedEncodingException {
 		String resultString = XML_PROLOG + result.toString();
 		
 		ExcelExtension.setLastConversion(resultString);
 		
-		return new ByteArrayInputStream(resultString.getBytes());
+		return new ByteArrayInputStream(resultString.getBytes("UTF-8"));
 	}
 
 	protected String getTestTitle(Resource resource) {
