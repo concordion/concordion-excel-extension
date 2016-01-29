@@ -11,8 +11,8 @@ package org.concordion.ext.excel;
 public abstract class AbstractSpecTest {
 
 	public static final String EXPECTED0 = "<html xmlns:concordion=\"http://www.concordion.org/2007/concordion\"><head><title>";
-	public static final String EXPECTED1 = ".</title></head><body><h1>";
-	public static final String EXPECTED2 = ".</h1><div class=\"example\"><h2>Sheet1</h2>";
+	public static final String EXPECTED1 = "</title></head><body><h1>";
+	public static final String EXPECTED2 = "</h1><div class=\"example\"><h2>Sheet1</h2>";
 	
 	public boolean htmlMatchesExpected() {
 		String firstPart = EXPECTED0+getTestName()+EXPECTED1+getTestName()+EXPECTED2;
@@ -31,7 +31,8 @@ public abstract class AbstractSpecTest {
 	}
 	
 	public String getTestName() {
-		return this.getClass().getSimpleName();
+		return "Unknown Test";
+		//return this.getClass().getSimpleName();
 	}
 	
 	public abstract String getBody();

@@ -5,8 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
-import org.concordion.api.Resource;
-import org.concordion.api.Source;
+import org.concordion.api.SpecificationConverter;
 import org.concordion.ext.excel.conversion.HTMLBuilder;
 import org.concordion.ext.excel.conversion.HTMLBuilderImpl;
 import org.concordion.ext.excel.conversion.workbook.WorkbookConversionStrategy;
@@ -19,30 +18,24 @@ import org.concordion.ext.excel.conversion.workbook.WorkbookHelper;
  * @author robmoffat
  *
  */
-public class ExcelClassPathSource implements Source {
+public class ExcelSpecificationConverter implements SpecificationConverter {
 	
 	WorkbookConversionStrategy workbookStrategy;
-	Source decorated;
 	
-	public ExcelClassPathSource(Source decorated, WorkbookConversionStrategy strategy) {
+	public ExcelSpecificationConverter(WorkbookConversionStrategy strategy) {
 		this.workbookStrategy = strategy;
-		this.decorated = decorated;
 	}
-
+	
 	@Override
-    public InputStream createInputStream(Resource resource) throws IOException {
-        InputStream inputStream = decorated.createInputStream(resource);
-        
-        if (resource.getName().endsWith(ExcelExtension.EXCEL_FILE_EXTENSION)) {
-        	 HTMLBuilder result = new HTMLBuilderImpl();
-             workbookStrategy.process(new WorkbookHelper(inputStream, getTestTitle(resource)), result);
-          	 inputStream.close();
+	public InputStream convert(InputStream inputStream) throws IOException {
+		// TODO: we need to somehow source the name of the test here.  This was originally from the filename.
+		String testName = "Unknown Test";
+		HTMLBuilder result = new HTMLBuilderImpl();
+        workbookStrategy.process(new WorkbookHelper(inputStream, testName), result);
+     	inputStream.close();
 
-             return createInputStreamFromPage(result);
-        } else {
-        	return inputStream;
-        }
-    }
+        return createInputStreamFromPage(result);
+	}
 
 	private static final String XML_PROLOG = "<?xml version=\"1.0\" encoding=\"UTF8\"?>";
 	
@@ -54,12 +47,4 @@ public class ExcelClassPathSource implements Source {
 		return new ByteArrayInputStream(resultString.getBytes("UTF-8"));
 	}
 
-	protected String getTestTitle(Resource resource) {
-		return resource.getName().substring(0, resource.getName().length() - ExcelExtension.EXCEL_FILE_EXTENSION.length());
-	}
-
-	@Override
-    public boolean canFind(Resource resource) {
-        return decorated.canFind(resource);
-    }
 }

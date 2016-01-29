@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
-import org.concordion.api.Source;
 import org.concordion.api.SpecificationLocator;
 import org.concordion.api.Target;
 import org.concordion.api.extension.ConcordionExtender;
@@ -32,18 +31,12 @@ import org.concordion.internal.ClassPathSource;
 public class ExcelExtension implements ConcordionExtension {
 	
 	public static final String EXCEL_FILE_EXTENSION = "xlsx";
-	private SpecificationLocator locator = getLocator();
-	private Source source = getSource();
-    private Target target = getTarget();
     
     @Override
     public void addTo(ConcordionExtender concordionExtender) {
-        concordionExtender.withSpecificationLocator(locator).withSource(source).withTarget(target);
+        concordionExtender.withSpecificationType(EXCEL_FILE_EXTENSION, 
+        	new ExcelSpecificationConverter(getWorkbookConversionStrategy()));
     }
-
-	protected Source getSource() {
-		return new ExcelClassPathSource(getDecoratedSource(), getWorkbookConversionStrategy());
-	}
 
 	protected WorkbookConversionStrategy getWorkbookConversionStrategy() {
 		List<ConversionStrategy<Cell>> cellPartConverters = new LinkedList<ConversionStrategy<Cell>>();
