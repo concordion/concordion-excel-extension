@@ -27,22 +27,19 @@ public class ExcelSpecificationConverter implements SpecificationConverter {
 	}
 	
 	@Override
-	public InputStream convert(InputStream inputStream) throws IOException {
-		// TODO: we need to somehow source the name of the test here.  This was originally from the filename.
-		String testName = "Unknown Test";
+	public InputStream convert(InputStream inputStream, String testName) throws IOException {
 		HTMLBuilder result = new HTMLBuilderImpl();
-        workbookStrategy.process(new WorkbookHelper(inputStream, testName), result);
-     	inputStream.close();
-
-        return createInputStreamFromPage(result);
+		workbookStrategy.process(new WorkbookHelper(inputStream, testName), result);
+		inputStream.close();
+		return createInputStreamFromPage(result, testName);
 	}
 
 	private static final String XML_PROLOG = "<?xml version=\"1.0\" encoding=\"UTF8\"?>";
 	
-    protected InputStream createInputStreamFromPage(HTMLBuilder result) throws UnsupportedEncodingException {
+    protected InputStream createInputStreamFromPage(HTMLBuilder result, String testName) throws UnsupportedEncodingException {
 		String resultString = XML_PROLOG + result.toString();
 		
-		ExcelExtension.setLastConversion(resultString);
+		ExcelExtension.setConversion(testName, resultString);
 		
 		return new ByteArrayInputStream(resultString.getBytes("UTF-8"));
 	}

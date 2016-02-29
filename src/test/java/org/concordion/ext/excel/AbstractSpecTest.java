@@ -1,5 +1,8 @@
 package org.concordion.ext.excel;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * All of these tests work on the basis of comparing what the Excel converter produced with
@@ -9,6 +12,12 @@ package org.concordion.ext.excel;
  *
  */
 public abstract class AbstractSpecTest {
+	
+	static Map<String, String> conversions = new HashMap<String, String>();
+ 	
+	static {
+		ExcelExtension.setConversionMap(conversions);
+	}
 
 	public static final String EXPECTED0 = "<html xmlns:concordion=\"http://www.concordion.org/2007/concordion\"><head><title>";
 	public static final String EXPECTED1 = "</title></head><body><h1>";
@@ -16,7 +25,7 @@ public abstract class AbstractSpecTest {
 	
 	public boolean htmlMatchesExpected() {
 		String firstPart = EXPECTED0+getTestName()+EXPECTED1+getTestName()+EXPECTED2;
-		String actual = ExcelExtension.getLastConversion();
+		String actual = conversions.get(getTestName());
 		System.out.println(actual);
 
 		if (actual.indexOf(firstPart) == -1) {
@@ -31,8 +40,7 @@ public abstract class AbstractSpecTest {
 	}
 	
 	public String getTestName() {
-		return "Unknown Test";
-		//return this.getClass().getSimpleName();
+		return this.getClass().getSimpleName()+".xlsx";
 	}
 	
 	public abstract String getBody();

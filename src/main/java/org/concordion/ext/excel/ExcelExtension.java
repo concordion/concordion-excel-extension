@@ -2,6 +2,7 @@ package org.concordion.ext.excel;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.concordion.api.SpecificationLocator;
@@ -68,24 +69,26 @@ public class ExcelExtension implements ConcordionExtension {
 		return new ClassNameBasedSpecificationLocator(EXCEL_FILE_EXTENSION);
 	}
 
+	
 	/**
 	 * This field is used for unit-testing purposes and shouldn't be relied upon 
 	 * for any kind of functionality.
 	 */
-	private static String lastConversion;
+	private static Map<String, String> conversions;
 	
-	public static void setLastConversion(String resultString) {
-		lastConversion = resultString;
+	public static void setConversion(String filename, String resultString) {
+		if (conversions != null) {
+			conversions.put(filename, resultString);
+		}
 	}
 	
 	/**
-	 * Returns the last conversion done by the {@link ExcelExtension}.  Used only for unit testing the 
-	 * Excel Extension itself.
+	 * Statically set the map to store conversions in.  Used only for unit testing.
 	 * 
 	 * @return some xhtml.
 	 */
-	public static String getLastConversion() {
-		return lastConversion;
+	public static void setConversionMap(Map<String, String> map) {
+		conversions = map;
 	}
 
 }
