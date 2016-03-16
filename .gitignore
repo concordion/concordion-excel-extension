@@ -11,3 +11,6 @@ bin/
 # IDEA
 .idea/
 *.iml
+
+# OSX
+.DS_Store

@@ -1,5 +1,6 @@
 package org.concordion.ext.excel.conversion.workbook;
 
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.concordion.ext.excel.conversion.AbstractConversionStrategy;
@@ -31,8 +32,8 @@ public class BasicWorkbookConversionStrategy extends AbstractConversionStrategy<
     	result.addText(title);
     	result.endTag();
     	
-    	for (XSSFSheet xssfSheet : workbook) {
-			sheetStrategy.process(xssfSheet, result);
+    	for (Sheet xssfSheet : workbook) {
+			sheetStrategy.process((XSSFSheet) xssfSheet, result);
 		}
     	
     	result.endTag();

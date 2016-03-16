@@ -3,11 +3,13 @@ package org.concordion.ext.excel.conversion.cellcontent;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.concordion.ext.excel.conversion.AbstractConversionStrategy;
 import org.concordion.ext.excel.conversion.HTMLBuilder;
+
 
 /**
  * Converts font styles and cell colours by default.  Extend this class if you want to preseve other 
@@ -42,11 +44,25 @@ public class DefaultStyleConverter extends AbstractConversionStrategy<Cell> {
 		StringBuilder out = new StringBuilder();
 		extractColourStyle(c, out);
 		extractFontStyle(c, out);
+		handleHiddenCells(c, out);
 		
 		if (out.length() > 0) {
 			b.addAttribute("style", out.toString());
 		}
 	}
+	
+	private boolean isHidden(CellStyle cs, Row r) {
+		return ((cs != null) && cs.getHidden()) || ((r != null) && r.getZeroHeight());
+	}
+	
+	protected void handleHiddenCells(Cell c, StringBuilder out) {
+		CellStyle rowStyle = c.getRow().getRowStyle();
+		CellStyle columnStyle = c.getSheet().getColumnStyle(c.getColumnIndex());
+		if (isHidden(rowStyle, c.getRow()) || isHidden(columnStyle, null)) {
+			out.append("display: none; ");
+		}
+	}
+
 
 	protected void extractColourStyle(Cell c, StringBuilder out) {
 		if (c == null) {

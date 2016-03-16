@@ -1,5 +1,7 @@
 package org.concordion.ext.excel.conversion.cell;
 
+import java.util.Map;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellValue;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
@@ -49,6 +51,14 @@ public class CachedValueFormulaEvaluator implements FormulaEvaluator{
 
 	@Override
 	public void setDebugEvaluationOutputForNextEval(boolean value) {
+	}
+
+	@Override
+	public void setupReferencedWorkbooks(Map<String, FormulaEvaluator> workbooks) {
+	}
+
+	@Override
+	public void setIgnoreMissingWorkbooks(boolean ignore) {
 	}
 
 }
