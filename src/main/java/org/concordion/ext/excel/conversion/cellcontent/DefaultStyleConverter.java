@@ -7,8 +7,10 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.helpers.ColumnHelper;
 import org.concordion.ext.excel.conversion.AbstractConversionStrategy;
 import org.concordion.ext.excel.conversion.HTMLBuilder;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTCol;
 
 
 /**
@@ -51,14 +53,21 @@ public class DefaultStyleConverter extends AbstractConversionStrategy<Cell> {
 		}
 	}
 	
-	private boolean isHidden(CellStyle cs, Row r) {
+	private boolean isHiddenRow(Cell c) {
+		Row r = c.getRow();
+		CellStyle cs = r.getRowStyle();
 		return ((cs != null) && cs.getHidden()) || ((r != null) && r.getZeroHeight());
 	}
 	
+	private boolean isHiddenColumn(Cell c) {
+		Sheet sheet = c.getSheet();
+		ColumnHelper ch = ((org.apache.poi.xssf.usermodel.XSSFSheet)sheet).getColumnHelper();
+		CTCol column = ch.getColumn(c.getColumnIndex(), true);
+		return (column != null) && (column.isSetHidden());
+	}
+	
 	protected void handleHiddenCells(Cell c, StringBuilder out) {
-		CellStyle rowStyle = c.getRow().getRowStyle();
-		CellStyle columnStyle = c.getSheet().getColumnStyle(c.getColumnIndex());
-		if (isHidden(rowStyle, c.getRow()) || isHidden(columnStyle, null)) {
+		if (isHiddenRow(c) || isHiddenColumn(c)) {
 			out.append("display: none; ");
 		}
 	}

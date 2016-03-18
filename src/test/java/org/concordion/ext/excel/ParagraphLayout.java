@@ -11,7 +11,7 @@ public class ParagraphLayout extends AbstractSpecTest {
 	@Override
 	public String getBody() {
 		return 	"<p><span>A simple HTML Paragraph</span></p><p><span style=\"background-color: #4BACC6; \">"+
-				"Background colours are respected</span></p><p><span style=\"background-color: #EEECE1; \">"+
+				"Background colours are respected</span></p><p><span style=\"background-color: #1F497D; \">"+
 				"Cells on the same row </span> <span style=\"background-color: #9BBB59; \">are placed on a single line.</span></p>";
 
 	}

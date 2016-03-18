@@ -3,6 +3,8 @@ package org.concordion.ext.excel;
 import java.util.HashMap;
 import java.util.Map;
 
+import junit.framework.ComparisonFailure;
+
 
 /**
  * All of these tests work on the basis of comparing what the Excel converter produced with
@@ -29,11 +31,12 @@ public abstract class AbstractSpecTest {
 		System.out.println(actual);
 
 		if (actual.indexOf(firstPart) == -1) {
-			return false;
+			throw new ComparisonFailure("Doesn't contain expected", firstPart, actual);
 		}
 		
 		if (actual.indexOf(getBody()) == -1) {
-			return false;
+			throw new ComparisonFailure("Doesn't contain body", getBody(), actual);
+
 		}
 
 		return true;
