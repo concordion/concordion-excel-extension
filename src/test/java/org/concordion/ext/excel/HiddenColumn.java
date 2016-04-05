@@ -10,11 +10,8 @@ public class HiddenColumn extends AbstractSpecTest {
 
 	@Override
 	public String getBody() {
-		return "<h1>HiddenColumn.xlsx</h1>"+
-				"<div class=\"example\"><h2>Sheet1</h2><p>"+
-				
-				// first row, has hidden middle column
-				"<span>Column A</span>"+" <span style=\"display: none; \">Hidden Column B</span> "+
+		return  // first row, has hidden middle column
+				"<p><span>Column A</span>"+" <span style=\"display: none; \">Hidden Column B</span> "+
 				"<span>Column C</span></p>"+
 				
 				// the hidden row
@@ -33,10 +30,7 @@ public class HiddenColumn extends AbstractSpecTest {
 				"<tr><td style=\"display: none; \">12</td><td style=\"display: none; \">24</td><td style=\"display: none; \">30</td></tr>"+
 				
 				// third, visible row
-				"<tr><td>44</td><td style=\"display: none; \">88</td><td>94</td></tr></table>"+
-				
-				// usual ending
-				"<p><span concordion:assertTrue=\"htmlMatchesExpected()\">Check the formatting</span></p></div>";
+				"<tr><td>44</td><td style=\"display: none; \">88</td><td>94</td></tr></table>";
 	}
 	
 	

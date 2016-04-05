@@ -29,11 +29,13 @@ dependencies {
     compile "org.apache.poi:poi-ooxml:$poiVersion"
     compile "org.apache.poi:poi-ooxml-schemas:$poiVersion"
     compile 'org.apache.commons:commons-lang3:3.3.2'
+	
 
 
     // these added temporarily for the 2.0.0-SNAPSHOT release
     compile 'org.concordion:concordion:2.0.0-SNAPSHOT'
     testCompile 'org.concordion:concordion:2.0.0-SNAPSHOT:tests'	
+	testCompile 'org.xmlunit:xmlunit-core:2.1.0'
 }
 
 githubPages {

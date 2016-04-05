@@ -34,7 +34,7 @@ public class ExcelSpecificationConverter implements SpecificationConverter {
 		return createInputStreamFromPage(result, testName);
 	}
 
-	private static final String XML_PROLOG = "<?xml version=\"1.0\" encoding=\"UTF8\"?>";
+	public static final String XML_PROLOG = "<?xml version=\"1.0\" encoding=\"UTF8\"?>";
 	
     protected InputStream createInputStreamFromPage(HTMLBuilder result, String testName) throws UnsupportedEncodingException {
 		String resultString = XML_PROLOG + result.toString();
