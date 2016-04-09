@@ -84,6 +84,7 @@ public class ExcelExtension implements ConcordionExtension {
 	
 	/**
 	 * Statically set the map to store conversions in.  Used only for unit testing.
+	 * @param map The map to store conversions in
 	 */
 	public static void setConversionMap(Map<String, String> map) {
 		conversions = map;
