@@ -32,10 +32,15 @@ public class BasicWorkbookConversionStrategy extends AbstractConversionStrategy<
     	result.addText(title);
     	result.endTag();
     	
-    	for (Sheet xssfSheet : workbook) {
-			sheetStrategy.process((XSSFSheet) xssfSheet, result);
-		}
+    	int sheets = workbook.getNumberOfSheets();
     	
+    	for (int i = 0; i < sheets; i++) {
+    		if (!workbook.isSheetHidden(i)) {
+    			Sheet xssfSheet = workbook.getSheetAt(i);
+    			sheetStrategy.process((XSSFSheet) xssfSheet, result);
+    		}
+		}
+    	    	
     	result.endTag();
     	result.endTag();
 	}

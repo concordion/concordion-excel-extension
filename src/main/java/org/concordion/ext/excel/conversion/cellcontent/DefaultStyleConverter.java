@@ -67,6 +67,9 @@ public class DefaultStyleConverter extends AbstractConversionStrategy<Cell> {
 	}
 	
 	protected void handleHiddenCells(Cell c, StringBuilder out) {
+		if (c == null) {
+			return;
+		}
 		if (isHiddenRow(c) || isHiddenColumn(c)) {
 			out.append("display: none; ");
 		}
