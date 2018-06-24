@@ -1,4 +1,4 @@
-apply from: '../concordion-extension-build/extension-build.gradle'
+apply from: 'https://raw.githubusercontent.com/concordion/concordion-extension-build/master/extension-build.gradle'
 apply plugin: 'eclipse'
 
 description = 'An extension to Concordion to use Excel spreadsheets rather than HTML as specifications'
