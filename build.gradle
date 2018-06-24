@@ -24,9 +24,10 @@ dependencies {
 	testCompile 'org.xmlunit:xmlunit-core:2.1.0'
 }
 
-githubPages {
+gitPublish {
 	repoUri = 'git@github.com:concordion/concordion-excel-extension.git'
-	pages {
+	branch = 'gh-pages'
+	contents {
 	   from 'docs'
 
 		from ('build/reports/spec/spec/concordion/ext/excel') {
