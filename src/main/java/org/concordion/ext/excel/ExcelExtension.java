@@ -57,19 +57,6 @@ public class ExcelExtension implements ConcordionExtension {
 		
 	}
 
-	protected ClassPathSource getDecoratedSource() {
-		return new ClassPathSource();
-	}
-	
-	protected Target getTarget() {
-		return new ExcelSuffixRenamingTarget();
-	}
-
-	protected SpecificationLocator getLocator() {
-		return new ClassNameBasedSpecificationLocator(EXCEL_FILE_EXTENSION);
-	}
-
-	
 	/**
 	 * This field is used for unit-testing purposes and shouldn't be relied upon 
 	 * for any kind of functionality.
