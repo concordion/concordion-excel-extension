@@ -63,7 +63,7 @@ public class DefaultStyleConverter extends AbstractConversionStrategy<Cell> {
 		Sheet sheet = c.getSheet();
 		ColumnHelper ch = ((org.apache.poi.xssf.usermodel.XSSFSheet)sheet).getColumnHelper();
 		CTCol column = ch.getColumn(c.getColumnIndex(), true);
-		return (column != null) && (column.isSetHidden());
+		return (column != null) && (column.getHidden());
 	}
 	
 	protected void handleHiddenCells(Cell c, StringBuilder out) {
