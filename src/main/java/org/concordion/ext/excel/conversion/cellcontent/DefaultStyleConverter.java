@@ -126,7 +126,7 @@ public class DefaultStyleConverter extends AbstractConversionStrategy<Cell> {
 			out.append("font-family: "+f.getFontName()+"; ");
 		}
 		
-		if (f.getBoldweight() > defaultBoldWeight) {
+		if (f.getBold()) {
 			out.append("font-weight: bold; ");
 		}
 	}
