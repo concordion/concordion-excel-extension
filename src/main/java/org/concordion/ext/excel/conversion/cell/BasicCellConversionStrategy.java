@@ -36,6 +36,8 @@ public class BasicCellConversionStrategy extends
 	public void process(Cell in, HTMLBuilder out) {
 		if (hasContent(in)) {
 			out.startTag(tag);
+			out.addAttribute(ATTR_TRACE, in.getAddress().toString());			
+			
 			for (ConversionStrategy<Cell> cs : contentConverters) {
 				cs.process(in, out);
 			}

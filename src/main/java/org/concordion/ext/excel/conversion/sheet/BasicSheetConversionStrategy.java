@@ -23,6 +23,8 @@ public class BasicSheetConversionStrategy extends AbstractConversionStrategy<XSS
 	public void process(XSSFSheet xssfSheet, HTMLBuilder result) {
 		result.startTag("div");
 		result.addAttribute("class", getSheetCSSClass());
+		result.addAttribute(ATTR_TRACE, xssfSheet.getSheetName());
+
 		result.startTag("h2");
 		result.addText(xssfSheet.getSheetName());
 		result.endTag();
