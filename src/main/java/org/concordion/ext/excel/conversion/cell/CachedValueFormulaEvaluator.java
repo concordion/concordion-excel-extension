@@ -3,6 +3,7 @@ package org.concordion.ext.excel.conversion.cell;
 import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.CellValue;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 
@@ -40,7 +41,12 @@ public class CachedValueFormulaEvaluator implements FormulaEvaluator{
 	}
 
 	@Override
-	public int evaluateFormulaCell(Cell cell) {
+	public CellType evaluateFormulaCell(Cell cell) {
+		return cell.getCachedFormulaResultType();
+	}
+
+	@Override
+	public CellType evaluateFormulaCellEnum(Cell cell) {
 		return cell.getCachedFormulaResultType();
 	}
 

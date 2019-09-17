@@ -4,7 +4,7 @@ apply plugin: 'eclipse'
 description = 'An extension to Concordion to use Excel spreadsheets rather than HTML as specifications'
 
 ext {
-    poiVersion = '3.14'
+    poiVersion = '4.1.0'
     developers = {
         developer {
             id 'robmoffat'

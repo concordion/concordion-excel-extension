@@ -1,12 +1,10 @@
 package org.concordion.ext.excel.conversion.cell;
 
-import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BLANK;
-import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_FORMULA;
-
 import java.util.List;
 import java.util.Locale;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.concordion.ext.excel.conversion.AbstractConversionStrategy;
@@ -70,7 +68,7 @@ public class BasicCellConversionStrategy extends
 	 * Two examples:  booleans appear in lower case (true, false), dates in the default
 	 * Excel format (in a UK locale) like 15/1/2021 get modified to 1/15/21. 
 	 */
-	protected String getCellStringContentsForType(int type, Cell in) {
+	protected String getCellStringContentsForType(CellType type, Cell in) {
 		DataFormatter df = new DataFormatter(Locale.getDefault());
 		return df.formatCellValue(in, EVALUATOR);
 	}
@@ -80,7 +78,7 @@ public class BasicCellConversionStrategy extends
 
 	protected boolean hasContent(Cell in) {
 		return (in != null)
-				&& ((in.getCellType() != CELL_TYPE_BLANK) || includeEmptyCells);
+				&& ((in.getCellType() != CellType.BLANK) || includeEmptyCells);
 	}
 
 }

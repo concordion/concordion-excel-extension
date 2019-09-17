@@ -1,8 +1,7 @@
 package org.concordion.ext.excel.conversion.row;
 
-import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BLANK;
-
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.concordion.ext.excel.conversion.AbstractConversionStrategy;
 import org.concordion.ext.excel.conversion.ConversionStrategy;
@@ -64,7 +63,7 @@ public class ParagraphRowStrategy extends AbstractConversionStrategy<Row> {
 	}
 	
 	protected boolean cellHasData(Cell in) {
-		return (in != null) && (in.getCellType() != CELL_TYPE_BLANK);
+		return (in != null) && (in.getCellType() != CellType.BLANK);
 	}
 	
 	protected boolean rowNeedsParagraph(Row r) {
