@@ -7,6 +7,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.concordion.ext.excel.ExcelCellConversionException;
 import org.concordion.ext.excel.conversion.AbstractConversionStrategy;
 import org.concordion.ext.excel.conversion.ConversionStrategy;
 import org.concordion.ext.excel.conversion.HTMLBuilder;
@@ -34,21 +35,30 @@ public class BasicCellConversionStrategy extends
 
 	@Override
 	public void process(Cell in, HTMLBuilder out) {
-		if (hasContent(in)) {
-			out.startTag(tag);
-			for (ConversionStrategy<Cell> cs : contentConverters) {
-				cs.process(in, out);
+		
+		try {
+			if (hasContent(in)) {
+				out.startTag(tag);
+				out.addAttribute(ATTR_TRACE, in.getAddress().toString());			
+				
+				for (ConversionStrategy<Cell> cs : contentConverters) {
+					cs.process(in, out);
+				}
+				
+				String content = getCellContent(in);
+				
+				String tagOverride = out.getCurrentOpenTagAttribute("html-tag");
+				if (tagOverride != null) {
+					out.setCurrentOpenTag(tagOverride);
+				}
+				
+				out.addText(content);
+				out.endTag();
 			}
-			
-			String content = getCellContent(in);
-			
-			String tagOverride = out.getCurrentOpenTagAttribute("html-tag");
-			if (tagOverride != null) {
-				out.setCurrentOpenTag(tagOverride);
-			}
-			
-			out.addText(content);
-			out.endTag();
+		} catch(ExcelCellConversionException cellEx) {
+			throw cellEx;
+		} catch(Exception ex) {
+			throw new ExcelCellConversionException("error processing", in, ex);
 		}
 	}
 
