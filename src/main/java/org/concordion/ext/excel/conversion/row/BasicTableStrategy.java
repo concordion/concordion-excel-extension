@@ -57,7 +57,8 @@ public class BasicTableStrategy extends AbstractConversionStrategy<XSSFTable> {
 			}
 			result.endTag();
 		} catch(Exception e) {
-			throw new ExcelCellConversionException("error processing table ", table.getStartCellReference());
+			throw new ExcelCellConversionException("Error processing table ",
+					table!=null ? table.getStartCellReference() : null, e);
 		}
 	}
 
