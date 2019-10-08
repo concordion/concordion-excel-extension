@@ -35,12 +35,13 @@ public class BasicCellConversionStrategy extends
 
 	@Override
 	public void process(Cell in, HTMLBuilder out) {
-		
+
 		try {
 			if (hasContent(in)) {
 				out.startTag(tag);
-				out.addAttribute(ATTR_TRACE, in.getAddress().toString());			
-				
+				out.addAttribute(ATTR_TRACE,
+						in.getAddress()!=null ? in.getAddress().toString() : "(null)");
+
 				for (ConversionStrategy<Cell> cs : contentConverters) {
 					cs.process(in, out);
 				}
