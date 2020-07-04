@@ -1,7 +1,7 @@
 language: java
+dist: trusty
 
-matrix:
-  include:
-    - jdk: openjdk10
-    - jdk: oraclejdk9
-    - jdk: openjdk8
+jdk:
+- oraclejdk11
+- oraclejdk9
+- oraclejdk8
