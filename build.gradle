@@ -17,11 +17,11 @@ ext {
 }
 
 dependencies {
-    compile "org.apache.poi:poi:$poiVersion"
-    compile "org.apache.poi:poi-ooxml:$poiVersion"
-    compile "org.apache.poi:poi-ooxml-schemas:$poiVersion"
-    compile 'org.apache.commons:commons-lang3:3.3.2'
-	testCompile 'org.xmlunit:xmlunit-core:2.1.0'
+    implementation "org.apache.poi:poi:$poiVersion"
+    implementation "org.apache.poi:poi-ooxml:$poiVersion"
+    implementation "org.apache.poi:poi-ooxml-schemas:$poiVersion"
+    implementation 'org.apache.commons:commons-lang3:3.3.2'
+	testImplementation 'org.xmlunit:xmlunit-core:2.1.0'
 }
 
 test {
