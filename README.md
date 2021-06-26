@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/concordion/concordion-excel-extension.svg?branch=master)](https://travis-ci.com/concordion/concordion-excel-extension)
+[![Build and Test](https://github.com/concordion/concordion-excel-extension/actions/workflows/ci.yml/badge.svg)](https://github.com/concordion/concordion-excel-extension/actions/workflows/ci.yml)
  [ ![Download](https://api.bintray.com/packages/concordion/maven/concordion-excel-extension/images/download.svg) ](https://bintray.com/concordion/maven/concordion-excel-extension/_latestVersion)
 
 [Concordion](http://www.concordion.org) is an open source framework for Java that lets you turn a plain English description of a requirement into an automated test.
