@@ -133,7 +133,7 @@ public class DefaultStyleConverter extends AbstractConversionStrategy<Cell> {
 	
 	protected Font getFont(Cell c) {
 		CellStyle style = c.getCellStyle();
-		short fontIndex = style.getFontIndex();
+		int fontIndex = style.getFontIndex();
 		Sheet s = c.getSheet();
 		Font f = s.getWorkbook().getFontAt(fontIndex);
 		return f;
