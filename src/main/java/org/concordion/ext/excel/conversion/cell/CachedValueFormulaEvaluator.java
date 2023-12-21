@@ -45,7 +45,6 @@ public class CachedValueFormulaEvaluator implements FormulaEvaluator{
 		return cell.getCachedFormulaResultType();
 	}
 
-	@Override
 	public CellType evaluateFormulaCellEnum(Cell cell) {
 		return cell.getCachedFormulaResultType();
 	}

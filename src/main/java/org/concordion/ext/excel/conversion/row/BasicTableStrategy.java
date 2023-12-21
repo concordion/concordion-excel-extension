@@ -2,6 +2,7 @@ package org.concordion.ext.excel.conversion.row;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Row.MissingCellPolicy;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFTable;
 import org.concordion.ext.excel.ExcelCellConversionException;
@@ -46,9 +47,9 @@ public class BasicTableStrategy extends AbstractConversionStrategy<XSSFTable> {
 				result.startTag("tr");
 				for (int i = columnFrom; i <= columnTo; i++) {
 					if (header) {
-						headerCell.process(r.getCell(i), result);
+						headerCell.process(r.getCell(i, MissingCellPolicy.CREATE_NULL_AS_BLANK), result);
 					} else {
-						bodyCell.process(r.getCell(i), result);
+						bodyCell.process(r.getCell(i, MissingCellPolicy.CREATE_NULL_AS_BLANK), result);
 					}
 				}
 				

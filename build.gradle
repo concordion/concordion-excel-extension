@@ -4,11 +4,17 @@ apply plugin: 'eclipse'
 description = 'An extension to Concordion to use Excel spreadsheets rather than HTML as specifications'
 
 ext {
-    poiVersion = '4.1.0'
+    poiVersion = '5.2.3'
     developers = {
         developer {
             id 'robmoffat'
             name 'Rob Moffat'
+            roles { role 'Extension Contributor' }
+            url 'http://kite9.com'
+        },
+        developer {
+            id 'tiagotcsilva'
+            name 'Tiago da Costa Silva'
             roles { role 'Extension Contributor' }
             url 'http://kite9.com'
         }
@@ -19,9 +25,10 @@ ext {
 dependencies {
     implementation "org.apache.poi:poi:$poiVersion"
     implementation "org.apache.poi:poi-ooxml:$poiVersion"
-    implementation "org.apache.poi:poi-ooxml-schemas:$poiVersion"
+    implementation "org.apache.poi:poi-ooxml-lite:$poiVersion"
     implementation 'org.apache.commons:commons-lang3:3.3.2'
 	testImplementation 'org.xmlunit:xmlunit-core:2.1.0'
+    testImplementation "org.junit.vintage:junit-vintage-engine:5.9.3"
 }
 
 test {
