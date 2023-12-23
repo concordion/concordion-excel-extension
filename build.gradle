@@ -11,7 +11,7 @@ ext {
             name 'Rob Moffat'
             roles { role 'Extension Contributor' }
             url 'http://kite9.com'
-        },
+        }
         developer {
             id 'tiagotcsilva'
             name 'Tiago da Costa Silva'
