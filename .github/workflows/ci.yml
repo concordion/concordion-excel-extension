@@ -61,5 +61,5 @@ jobs:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           external_repository: concordion/concordion-specifications
           publish_branch: main
-          publish_dir: artifacts/reports-java-8/reports/spec
+          publish_dir: artifacts/reports-java-21/reports/spec
           destination_dir: concordion-excel-extension
