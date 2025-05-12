@@ -58,7 +58,7 @@ jobs:
       - name: Publish Specifications
         uses: peaceiris/actions-gh-pages@v4
         with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          deploy_key: ${{ secrets.GITHUB_TOKEN }}
           external_repository: concordion/concordion-specifications
           publish_branch: main
           publish_dir: artifacts/reports-java-21/reports/spec
